@@ -3,7 +3,8 @@ import { createContext, useContext, useState } from 'react'
 const WishContext = createContext(null)
 
 export function WishProvider({ children }) {
-    const  [wishIds, setWishIds] = useState([])
+    const  [wishIds, setWishIds] = 
+    useState( JSON.parse(localStorage.getItem('wishIds')) || [])
 
     function toggleWish(id) {
         let next
@@ -15,6 +16,7 @@ export function WishProvider({ children }) {
         }
 
         setWishIds(next)
+        localStorage.setItem('wishIds', JSON.stringify(next))
     }
 
     return <WishContext value = {{wishIds, toggleWish}}>{ children }</WishContext>
