@@ -12,7 +12,7 @@ function MovieList() {
     const [genreNames, setGenreNames] = useState([])
     const [selectedGenre, setSelectedGenre] = useState('all')
 
-    const [wishIds, setWishIds] = useState([])
+    // const [wishIds, setWishIds] = useState([])
 
 
 
@@ -33,31 +33,31 @@ function MovieList() {
         setGenreNames(shownGenres.map(g => g.name))
             
         
-        
+    
         //  setGenreNames(genres.map(g => g.name))
         }
         load()
     }  , [])
 
 
-    const shown = movies.filter(m => m.title.toLowerCase().includes(query.toLowerCase()))
+   let shown = movies.filter(m => m.title.toLowerCase().includes(query.toLowerCase()))
 
     if (selectedGenre !== 'all') {
-        shown.filter(m => m.genre_ids.includes(selectedGenre))
+        shown = shown.filter(m => m.genre_ids.includes(selectedGenre))
     }
 
-    function toggleWish(id) {
-        let next
+    // function toggleWish(id) {
+    //     let next
 
-        if (wishIds.includes(id)) {
-            next = wishIds.filter(x => x !== id)
-        } else {
-            next = [...wishIds, id]
-        }
+    //     if (wishIds.includes(id)) {
+    //         next = wishIds.filter(x => x !== id)
+    //     } else {
+    //         next = [...wishIds, id]
+    //     }
 
-        setWishIds(next)
+    //     setWishIds(next)
 
-    }
+    // }
  
     return (
         <>
@@ -76,9 +76,9 @@ function MovieList() {
 
             <div id="cards">
                 { shown.map((movie)=> 
-                    <MovieCard key={movie.id} {...movie} 
-                    wish={ wishIds.includes(movie.id) } 
-                    onWish={toggleWish}
+                    <MovieCard 
+                    key={movie.id} {...movie} 
+                   
                     />
                 )}
             </div>
